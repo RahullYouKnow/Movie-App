@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- TOP NAVIGATION BAR -->
+    <header class="navbar">
+      <div class="logo">
+        <button id="menu-btn1" class="menuBtn">
+          <i class="ri-menu-line"></i>
+        </button>
+        <!-- The 'L' shape on the left of your drawing -->
+        <img src="teraBhaiZB-removebg-preview.png" alt="Logo" />
+        <h2>Movies</h2>
+      </div>
+
+      <div class="search-container">
+        <!-- The search bar and icon/button on the right of the header -->
+        <button id="mode" class="menuBtn">
+          <i id="modeIcon" class="ri-sun-line"></i>
+        </button>
+        <div class="abso">
+          <input type="text" id="search-input" placeholder="Search movies..." />
+          <button id="close">x</button>
+        </div>
+
+        <button id="search-btn" class="menuBtn">
+          <i class="ri-search-line"></i>
+        </button>
+        <button id="menu-btn2" class="menuBtn">
+          <i class="ri-menu-line"></i>
+        </button>
+        <!-- The extra box in the header -->
+      </div>
+    </header>
+
+    <!-- MAIN MOVIE AREA -->
+    <main>
+      <!-- The container that will hold the 5 movie cards -->
+      <h2 id="noData"></h2>
+      <div id="movie-container" class="grid-layout">
+        <!-- We will eventually use JavaScript to create these, but here are placeholders matching your drawing -->
+      </div>
+    </main>
+
+    <!-- MOVIE DETAILS MODAL -->
+    <div id="movie-modal" class="modal-overlay">
+      <div class="modal-content">
+        <!-- Close Button -->
+        <button id="close-modal" class="close-btn">
+          <i class="ri-close-line"></i>
+        </button>
+
+        <div class="modal-body">
+          <!-- Left Column: Poster, Title, Meta, and Plot -->
+          <div class="main-details">
+            <div class="top-row">
+              <div class="modal-poster">
+                <img id="modal-img" src="" alt="Movie Poster" />
+              </div>
+              <div class="movie-meta-data">
+                <h2 id="modal-title">Movie Name</h2>
+                <div id="modal-meta" class="meta-info">
+                  <!-- Genre, runtime, and year will go here -->
+                </div>
+              </div>
+            </div>
+
+            <div class="plot-section">
+              <h3>Plot</h3>
+              <p id="modal-plot">This is the movie plot...</p>
+            </div>
+          </div>
+
+          <!-- Right Column: Cast List -->
+          <div class="cast-section">
+            <h3>Cast</h3>
+            <div id="cast-list" class="cast-container">
+              <!-- Dynamically generated list of actor names/pictures -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- FLOATING ACTION BUTTON -->
+    <!-- The circle with the arrow in the bottom right corner -->
+    <button id="scroll-top-btn" class="floating-btn">
+      <i class="ri-arrow-up-s-line"></i>
+    </button>
+    <script src="script.js"></script>
+  </body>
+</html>

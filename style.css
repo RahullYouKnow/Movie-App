@@ -1,0 +1,590 @@
+/* 1. GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #141414; /* Classic dark streaming background */
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+/* 2. TOP NAVIGATION BAR (Flexbox) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+
+  /* 1. Make the background semi-transparent so you can see through it */
+  background-color: rgba(0, 0, 0, 0.6);
+
+  /* 2. Blur whatever is behind the navbar */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* For Safari support */
+
+  width: 80%;
+  margin: 10px auto;
+  border-radius: 13px;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.logo h2 {
+  color: #3b3838;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 4px;
+}
+.logo img {
+  height: 40px; /* Adjust based on your actual logo */
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+}
+#search-btn{
+  display: none;
+}
+#search-input {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 2px solid #333;
+  background-color: #222;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+}
+
+.menuBtn {
+  background: transparent;
+  border: 2px solid #333;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 8px;
+  transition: 0.3s;
+}
+#menu-btn1{
+  display: none;
+}
+.menuBtn:hover,
+.logo h2:hover,
+#search-input:hover {
+  background-color: rgb(32, 35, 41);
+  border-color: #e50914;
+}
+
+.menuBtn:active,
+#search-input:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0;
+  }
+  .logo {
+    gap: 4px;
+  }
+  .logo h2 {
+    font-size: 20px;
+
+    padding: 3px;
+  }
+  .logo img {
+    height: 30px; /* Adjust based on your actual logo */
+  }
+  .menuBtn {
+    font-size: 1rem;
+    padding: 4px;
+  }
+  #menu-btn2 {
+    display: none;
+  }
+  #search-input {
+    padding: 5px 5px;
+    display: none;
+  }
+
+  .search-container {
+    gap: 5px;
+  }
+
+  #search-btn{
+    display: block;
+  }
+  #menu-btn1{
+    display: block;
+  }
+}
+/* 3. MAIN MOVIE GRID (CSS Grid) */
+main {
+  padding: 40px;
+}
+
+.grid-layout {
+  display: grid;
+  /* Change auto-fit to auto-fill right here */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+/* 4. INDIVIDUAL MOVIE CARDS */
+/* .movie-card {
+  background-color: #222;
+  border: 2px solid #333;
+  border-radius: 10px; 
+  aspect-ratio: 2 / 3; 
+  transition: transform 0.2s; 
+  cursor: pointer;
+}
+
+
+
+/* Card Container updates */
+.movie-card {
+    background-color: #1e1e1e; /* Sleek, card bg instead of flat dark */
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden; /* Important! Prevents content from going outside the rounded corners */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure natural card sizing */
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  border-color: #e50914; 
+} 
+
+/* Image wrapper takes up most of the space */
+.poster-wrapper {
+    flex: 1; /* Automatically takes up available vertical space */
+    width: 100%;
+    overflow: hidden;
+}
+
+.poster-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+/* Info container below image */
+.movie-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.movie-info h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+    white-space: nowrap; /* Prevents long titles from warping cards */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Puts '...' if the movie title is too long */
+}
+
+/* Meta Data like year and rating */
+.movie-info .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+.movie-info .overview {
+    font-size: 0.75rem;
+    color: #888; /* Slightly darker grey so it doesn't distract from the title */
+    margin-top: 8px;
+    line-height: 1.4;
+    
+    /* The magic code to clamp the text to exactly 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Subtle zoom effect on hover */
+.movie-card:hover .poster-wrapper img {
+    transform: scale(1.05);
+}
+
+/* 5. FLOATING ACTION BUTTON */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  height: 40px;
+  width: 40px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  background-color: #000000;
+  color: white;
+
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+.floating-btn:hover {
+  background-color: rgb(32, 35, 41);
+  border-color: #e50914;
+}
+
+.floating-btn:active {
+  transform: scale(0.96);
+}
+
+
+.abso{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+#close{
+  position: absolute;
+  right: 14px;
+  cursor: pointer;
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+
+/* REFINED LIGHT MODE THEME */
+body.light-mode {
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  color: #141414;
+}
+
+body.light-mode .navbar {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Fix: Soften the search and menu buttons to match the glass navbar */
+body.light-mode #search-input,
+body.light-mode .menuBtn {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  color: #111;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+body.light-mode #search-input::placeholder {
+  color: #666;
+}
+
+/* The Movie Cards */
+body.light-mode .movie-card {
+  background-color: #ffffff;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Fix: High-contrast text for strict accessibility compliance */
+body.light-mode .movie-info h3, body.light-mode #close {
+  color: #111;
+  font-weight: 700;
+}
+
+body.light-mode .movie-info .meta,
+body.light-mode .movie-info .overview {
+  color: #444; 
+}
+
+/* Fix: Invert the forgotten floating action button */
+body.light-mode .floating-btn {
+  background-color: #ffffff;
+  color: #111;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#noData{
+  align-items: center;
+}
+
+
+
+
+/* =========================================
+   MOVIE DETAILS MODAL (POP-UP)
+   ========================================= */
+
+/* The 'blur' background that covers the entire screen */
+.modal-overlay {
+  display: none; /* Invisible by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Darken everything */
+  backdrop-filter: blur(10px); /* The "blur" around the card */
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000; /* Force it on top of your navbar */
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* The centered container/modal box */
+.modal-content {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 850px;
+  max-height: 90vh;
+  overflow-y: auto; /* Scrollable on small screens */
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: modalScaleUp 0.3s ease-out;
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Close Button (top-right 'x') */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #e50914; /* Brand accent color */
+}
+
+/* Flex layout: Splits modal into left (details) and right (cast) */
+.modal-body {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+}
+
+/* LEFT SIDE: Poster, Title, and Plot */
+.main-details {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.top-row {
+  display: flex;
+  gap: 20px;
+}
+
+/* 'Pic' styling */
+.modal-poster {
+  width: 140px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #444;
+}
+
+.modal-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 'Name' and 'Other' metadata on the top right */
+.movie-meta-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.movie-meta-data h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+}
+
+.meta-info {
+  font-size: 0.9rem;
+  color: #aaa;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* 'Plot' bottom area */
+.plot-section h3 {
+  font-size: 1.1rem;
+  color: #e50914;
+  margin-bottom: 8px;
+}
+
+.plot-section p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* RIGHT SIDE: Cast columns */
+.cast-section {
+  flex: 1;
+  border-left: 1px solid #333;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  max-height: 65vh; /* Sets a max boundary */
+}
+
+.cast-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+/* Container for Cast, with vertical scroll list */
+.cast-container {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 10px;
+}
+
+/* Customize the scrollbar for Cast section */
+.cast-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.cast-container::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 2px;
+}
+
+/* Cast member cards */
+.cast-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cast-member img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #555;
+}
+
+.cast-member .name-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cast-member .actor-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cast-member .character-name {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* LIGHT MODE OVERRIDES */
+body.light-mode .modal-overlay {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+body.light-mode .modal-content {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .movie-meta-data h2,
+body.light-mode .cast-section h3,
+body.light-mode .cast-member .actor-name {
+  color: #111;
+}
+
+body.light-mode .plot-section p,
+body.light-mode .meta-info {
+  color: #444;
+}
+
+body.light-mode .cast-section {
+  border-left-color: #eee;
+}
+
+body.light-mode .close-btn {
+  color: #555;
+}
+
+/* Responsive breakpoint for mobile screens */
+@media (max-width: 768px) {
+  .modal-body {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .top-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .cast-section {
+    border-left: none;
+    padding-left: 0;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+  }
+  
+  body.light-mode .cast-section {
+    border-top-color: #eee;
+  }
+}
